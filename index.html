@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Explainer | NASA + Gemini</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen selection:bg-indigo-500 selection:text-white">
+    <!-- Navbar -->
+    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+        <div class="px-4 py-8 flex items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl"></span>
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                    Cosmic Explainer
+                </h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-8">
+
+        <!-- Controls Section -->
+        <section class="flex flex-col sm:flex-row gap-4 items-center justify-between bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg">
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <label for="datePicker" class="text-sm font-medium text-gray-300">Select Date:</label>
+                <input type="date" id="datePicker"
+                    class="bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition [color-scheme:dark]">
+            </div>
+           
+            <button id="btnLoadApod" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 px-6 rounded-lg transition transform active:scale-95 flex items-center justify-center gap-2">
+                <span id="loaderApod" class="hidden animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                <span>Load Picture</span>
+            </button>
+        </section>
+
+        <!-- Error Message Container -->
+        <div id="errorMessage" class="hidden p-4 bg-red-900/50 border border-red-700 text-red-200 text-sm rounded-lg text-center"></div>
+
+        <!-- APOD Content (Hidden by default) -->
+        <section id="apodContent" class="hidden space-y-6">
+           
+            <!-- Image Card -->
+            <div class="bg-black rounded-2xl overflow-hidden shadow-2xl border border-gray-700 relative group">
+                <div id="mediaContainer" class="w-full h-96 md:h-[32rem] flex items-center justify-center bg-gray-900">
+                    <!-- Image or Iframe injected here -->
+                </div>
+                <!-- Overlay Title -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-20 pointer-events-none">
+                    <h2 id="apodTitle" class="text-2xl md:text-3xl font-bold text-white drop-shadow-md"></h2>
+                    <p id="apodDate" class="text-gray-300 text-sm mt-1"></p>
+                </div>
+            </div>
+            <!-- Chatbot Section -->
+            <div class="bg-gradient-to-br from-purple-900/30 to-indigo-900/30 rounded-2xl p-6 border border-purple-700/50 shadow-lg backdrop-blur-sm relative overflow-hidden">
+                <!-- Decor background -->
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-purple-600 blur-[80px] opacity-20 rounded-full pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-32 h-32 bg-indigo-600 blur-[80px] opacity-20 rounded-full pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    <!-- Header -->
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-full flex items-center justify-center">
+                            <span class="text-lg">✨</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">
+                            Cosmic AI Assistant
+                        </h3>
+                    </div>
+                    <!-- Chat Display -->
+                    <div id="chatMessages" class="bg-gray-900/50 rounded-xl p-4 mb-4 h-64 overflow-y-auto space-y-3 border border-gray-700/50">
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 text-sm">🤖</div>
+                            <div class="bg-purple-900/40 rounded-lg px-4 py-2 border border-purple-700/30">
+                                <p class="text-sm text-purple-100">Hi! Ask me about this cosmic image. Choose a question or type your own!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Predefined Questions -->
+                    <div class="space-y-2">
+                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-wide">Quick Questions</p>
+                        <div id="questionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <!-- Questions will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
